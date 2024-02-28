@@ -1,1 +1,2 @@
-print("TEST")
+print("TEST!")
+print("VI TESTER NU")
