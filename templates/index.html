@@ -3,36 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Page</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
+    <title>Login Selection</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class="flashes">
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
-    <!-- ... rest of your HTML code ... -->
-
-    <h1>{{ message }}</h1>
-    <div class="login-container">
-      <h2>Login</h2>
-      <form action="/" method="post">
-        <div class="input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-        <div class="input-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <input type="submit" value="Login" />
-      </form>
+    <div class="login-selection-container">
+      <h2>Login As</h2>
+      <div class="login-option">
+        <a href="/patient-login">For Patients</a>
+        <a href="/healthcare-login">For Healthcare Personnel</a>
+      </div>
     </div>
   </body>
 </html>

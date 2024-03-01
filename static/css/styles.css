@@ -9,7 +9,7 @@ body {
     height: 100vh;
 }
 
-.login-container {
+.login-container, .login-selection-container {
     width: 300px;
     padding: 20px;
     background-color: #ffffff;
@@ -18,27 +18,32 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.input-group {
+.input-group, .login-option {
     margin-bottom: 20px;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], .login-button {
     width: calc(100% - 20px);
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    background-color: #e7e7e7;
+    cursor: pointer;
 }
 
-input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
+input[type="submit"], .login-button:hover {
     background-color: #007bff;
     color: white;
-    cursor: pointer;
+}
+
+.login-button {
+    margin: 5px 0; /* Spacing between buttons */
 }
 
 input[type="submit"]:hover {
