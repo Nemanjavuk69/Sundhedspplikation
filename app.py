@@ -47,5 +47,13 @@ def sad():
     return render_template('sad.html')
 
 
+@app.route('/yay', methods=['GET', 'POST'])
+def yay():
+    if request.method == 'POST':
+        # Handle healthcare personnel login form submission here
+        pass
+    return render_template('yay.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

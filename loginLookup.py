@@ -29,7 +29,7 @@ def login():
         if found_user:
             flash('Login successful.')
             # Make sure this points to the correct view function
-            return redirect(url_for('home'))
+            return redirect(url_for('yay'))
         else:
             flash('Invalid username or password.')
             return redirect(url_for('sad'))  # Adjust as necessary
