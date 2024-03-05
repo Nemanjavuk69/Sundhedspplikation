@@ -9,54 +9,47 @@ body {
     height: 100vh;
 }
 
-.login-container, .login-selection-container {
+.login-selection-container, .login-container {
     width: 300px;
     padding: 20px;
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center-align the text within the container */
 }
 
-.input-group, .login-option {
+.login-option {
     margin-bottom: 20px;
 }
 
-input[type="text"], input[type="password"], .login-button {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    color: black;
-    background-color: #e7e7e7;
-    cursor: pointer;
+.login-option a {
+    display: inline-block; /* Make links behave like block elements but stay in line */
+    width: calc(50% - 10px); /* Adjust width as needed, subtracting margin */
+    padding: 10px 0; /* Add padding for visual spacing */
+    margin: 5px; /* Space out the buttons */
+    border: 1px solid #007bff; /* Border color to match hover state for consistency */
+    border-radius: 5px; /* Rounded corners for the buttons */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline from links */
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
 
-input[type="submit"], .login-button:hover {
-    background-color: #007bff;
-    color: white;
-}
-
-.login-button {
-    margin: 5px 0; /* Spacing between buttons */
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
+.login-option a:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+    color: #ffffff; /* Ensure text color remains white on hover */
 }
 
 .flashes {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
+}
   
-  .flashes li {
+.flashes li {
     margin: 10px 0;
     padding: 5px;
     background-color: #9fdf9f; /* Light green background */
@@ -64,5 +57,4 @@ input[type="submit"]:hover {
     border: 1px solid #3c763d; /* Dark green border */
     border-radius: 5px;
     text-align: center;
-  }
-  
+}
