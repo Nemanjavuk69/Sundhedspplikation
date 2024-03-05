@@ -55,5 +55,17 @@ def yay():
     return render_template('yay.html')
 
 
+@app.route('/login-options')
+def login_options():
+    # Assuming you have a file named 'loginOptions.html' in the 'templates' directory
+    return render_template('loginOptions.html')
+
+
+@app.route('/register', methods=['GET'])
+def register():
+    # Render the registration form template
+    return render_template('registerUser.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

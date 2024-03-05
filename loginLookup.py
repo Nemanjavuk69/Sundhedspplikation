@@ -1,6 +1,7 @@
 # loginLookup.py
 from flask import Blueprint, request, flash, redirect, url_for
 import csv
+from hashing import hash_string
 
 login_lookup = Blueprint('login_lookup', __name__)
 
@@ -12,6 +13,9 @@ def login():
         # For example:
         username = request.form['username']
         password = request.form['password']
+
+        hashedUsername = hash_string(username)
+        hashedPassword = hash_string(password)
         # Logic to verify username and password
         # Replace 'example.csv' with the path to your actual CSV file
         users = 'users.csv'
@@ -22,7 +26,7 @@ def login():
             next(csv_reader, None)  # Skip header
             for row in csv_reader:
                 # Assuming username is in the first column, password in the second
-                if username == row[0] and password == row[1]:
+                if hashedUsername == row[0] and hashedPassword == row[1]:
                     found_user = True
                     break
 
