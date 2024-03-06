@@ -1,42 +1,39 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-from loginLookup import login_lookup
+from loginLookupPatient import login_lookup_patient
+from loginLookupHealthcare import login_lookup_healthcare
 from registerUser import register_user
 
 app = Flask(__name__)
 app.secret_key = '123456'
 
 # Register the blueprints
-app.register_blueprint(login_lookup, url_prefix='/auth')
+app.register_blueprint(login_lookup_patient, url_prefix='/auth')
+app.register_blueprint(login_lookup_healthcare, url_prefix='/auth')
 app.register_blueprint(register_user, url_prefix='/auth')
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        user_login = request.form['username']
-        if user_login == "Admin":
-            print("!!!CONGRATULATIONS!!!")
-            flash("!!!CONGRATULATIONS!!! You are logged in as Admin.")
-            return render_template('index.html')
-        else:
-            flash("Invalid login. Please try again.")
+        # Something
+        pass
     return render_template('index.html')
 
 
-@app.route('/patient-login', methods=['GET', 'POST'])
-def patient_login():
+@app.route('/patientLogin', methods=['GET', 'POST'])
+def patientLogin():
     if request.method == 'POST':
         # Handle patient login form submission here
         pass
-    return render_template('patient-login.html')
+    return render_template('patientLogin.html')
 
 
-@app.route('/healthcare-login', methods=['GET', 'POST'])
-def healthcare_login():
+@app.route('/healthcareLogin', methods=['GET', 'POST'])
+def healthcareLogin():
     if request.method == 'POST':
         # Handle healthcare personnel login form submission here
         pass
-    return render_template('healthcare-login.html')
+    return render_template('healthcareLogin.html')
 
 
 @app.route('/sad', methods=['GET', 'POST'])

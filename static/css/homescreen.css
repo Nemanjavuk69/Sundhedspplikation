@@ -1,0 +1,58 @@
+/* Basic reset for padding and margin */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+  padding: 20px;
+}
+
+.selection-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 {
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.option a {
+  display: inline-block;
+  background-color: #106ba3;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px 5px; /* Spacing between buttons */
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option a:hover {
+  background-color: #0d5a8a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Additional styles for differentiating the Register button */
+.option a[href="/register"] {
+  background-color: #28a745;
+}
+
+.option a[href="/register"]:hover {
+  background-color: #218838;
+}
