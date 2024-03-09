@@ -2,6 +2,8 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 import csv
 from hashing import hash_string
 
+salt = "123"
+
 register_user = Blueprint('register_user', __name__,
                           template_folder='templates')
 
