@@ -2,6 +2,7 @@
 from flask import Blueprint, request, flash, redirect, url_for
 import csv
 from hashing import hash_string
+from salting import salt
 
 login_lookup_patient = Blueprint('login_lookup_patient', __name__)
 
@@ -14,7 +15,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        hashedPassword = hash_string(password)
+        hashedPassword = hash_string(password+salt())
         # Logic to verify username and password
         # Replace 'example.csv' with the path to your actual CSV file
         users = 'users.csv'
