@@ -1,6 +1,9 @@
-from flask import Blueprint, request, render_template, redirect, url_for, flash
+from flask import Blueprint, request, render_template, redirect, url_for, flash, session
 import csv
 from hashing import hash_string
+from salting import salt
+import os
+from time import time
 
 register_user = Blueprint('register_user', __name__,
                           template_folder='templates')
@@ -18,18 +21,30 @@ def username_exists(username):
 @register_user.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        # Check if we already processed this form submission
+        form_token = request.form.get('form_token')
+        if session.get('last_form_token') == form_token:
+            # Ignore resubmission
+            return redirect(url_for('register_user.register'))
+        # Store the token in the session
+        session['last_form_token'] = form_token
+
         username = request.form['username']
         password = request.form['password']
 
         if username_exists(username):
-            flash('The username is already in use', 'error')  # Flash message
+            flash('The username is already in use',
+                  'registration_error')  # Flash message
             return redirect(url_for('register_user.register'))
 
-        hashed_password = hash_string(password)
+        hashed_password = hash_string(password+salt())
         with open('users.csv', 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow([username, hashed_password])
-        flash('Registration successful! Please login.', 'success')
+        flash('Registration successful! Please login.', 'registration_success')
         return redirect(url_for('register_user.register'))
 
-    return render_template('registerUser.html')
+    # Generate a unique token for the form
+    form_token = os.urandom(12).hex()
+    session['last_form_token'] = form_token
+    return render_template('registerUser.html', form_token=form_token, cache_buster=int(time()))

@@ -86,16 +86,24 @@ body {
 /* Existing styles remain unchanged */
 
 /* New or adjusted styles for flash messages */
-.flash-messages .success {
-    background-color: #d4edda; /* Light green background */
-    color: #155724; /* Dark green text */
-    border-color: #c3e6cb;
+.flash-messages .registration_success {
+  background-color: #d4edda; /* A light green background */
+  border-color: #c3e6cb; /* A slightly darker green border */
+  color: #155724; /* A dark green text color for contrast */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   }
   
-  .flash-messages .error {
-    background-color: #f8d7da; /* Keep existing error style */
-    color: #721c24;
-    border-color: #f5c6cb;
+  .flash-messages .registration_error {
+    background-color: #f8d7da; /* A light red background */
+    border-color: #f5c6cb; /* A slightly darker red border */
+    color: #721c24; /* A dark red text color for contrast */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
   }
   
   /* Style to change the background color for successful registration */
