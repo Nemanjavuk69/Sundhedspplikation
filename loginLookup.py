@@ -31,7 +31,7 @@ def login():
                     break
 
         if found_user:
-            flash('Login succesful', 'login')
+            flash('Login succesful', 'login_succesful')
             # Make sure this points to the correct view function
             return redirect(url_for('yay'))
         else:

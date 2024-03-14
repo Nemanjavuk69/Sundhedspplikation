@@ -4,18 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
-    <link
-      rel="stylesheet"
-      href="/static/css/registerUser.css?v={{ cache_buster }}"
-    />
+    <link rel="stylesheet" href="/static/css/registerUser.css" />
   </head>
   <body>
+    {% with messages =
+    get_flashed_messages(category_filter=["registration_error",
+    "registration_success"]) %} {% if messages %}
     <div class="flash-messages">
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %} {% for category, message in messages %}
-      <div class="{{ category }}">{{ message }}</div>
-      {% endfor %} {% endif %} {% endwith %}
+      {% for message in messages %}
+      <div
+        class="{{ 'registration_success' if 'success' in message else 'registration_error' }}"
+      >
+        {{ message }}
+      </div>
+      {% endfor %}
     </div>
+    {% endif %} {% endwith %}
 
     <div class="registration-container">
       <h1>Register</h1>
