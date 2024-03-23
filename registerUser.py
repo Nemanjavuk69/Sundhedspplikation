@@ -4,6 +4,7 @@ from hashing import hash_string
 from salting import salt
 import os
 from time import time
+import pandas as pd
 
 register_user = Blueprint('register_user', __name__,
                           template_folder='templates')
@@ -20,6 +21,9 @@ def username_exists(username):
 
 @register_user.route('/register', methods=['GET', 'POST'])
 def register():
+    file_path = 'users.csv'
+    df = pd.read_csv(file_path)
+    ID = len(df)
     if request.method == 'POST':
         # Check if we already processed this form submission
         form_token = request.form.get('form_token')
@@ -31,6 +35,8 @@ def register():
 
         username = request.form['username']
         password = request.form['password']
+        email = request.form['email']
+        type = request.form['type']
 
         if username_exists(username):
             flash('The username is already in use',
@@ -38,9 +44,9 @@ def register():
             return redirect(url_for('register_user.register'))
 
         hashed_password = hash_string(password+salt())
-        with open('users.csv', 'a', newline='') as csvfile:
+        with open(file_path, 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow([username, hashed_password])
+            writer.writerow([username, hashed_password, email, ID, type])
         flash('Registration successful! Please login.', 'registration_success')
         return redirect(url_for('register_user.register'))
 
