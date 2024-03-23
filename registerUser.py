@@ -14,7 +14,7 @@ def username_exists(username):
     with open('users.csv', mode='r', newline='') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            if row[0] == username:
+            if row[0].lower() == username.lower():
                 return True
     return False
 
