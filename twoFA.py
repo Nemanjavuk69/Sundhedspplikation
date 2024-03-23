@@ -12,6 +12,7 @@ def generate_secure_code():
 
 
 def send_code_via_email(receiver_email, code):
+
     sender_email = "Nemanjavuksanovic69@gmail.com"
     # Consider using environment variables or a secrets manager
     sender_password = r"dnqv eqkw wjod zvnc"
