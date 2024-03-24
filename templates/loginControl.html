@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Verification</title>
+    <link rel="stylesheet" href="/static/css/loginControl.css" />
+  </head>
+  <body>
+    <div class="verification-form">
+      <form
+        action="{{ url_for('login_blueprint.login_control') }}"
+        method="post"
+      >
+        <label for="code">Enter your 2FA code:</label><br />
+        <input type="text" id="code" name="code" maxlength="6" required /><br />
+        <input type="submit" value="Verify" />
+      </form>
+    </div>
+  </body>
+</html>

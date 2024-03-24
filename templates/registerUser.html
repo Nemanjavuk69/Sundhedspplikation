@@ -7,16 +7,20 @@
     <link rel="stylesheet" href="/static/css/registerUser.css" />
   </head>
   <body>
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %}
+    {% with messages =
+    get_flashed_messages(category_filter=["registration_error",
+    "registration_success"]) %} {% if messages %}
     <div class="flash-messages">
-      {% for category, message in messages %}
-      <div class="{{ category }}">{{ message }}</div>
+      {% for message in messages %}
+      <div
+        class="{{ 'registration_success' if 'success' in message else 'registration_error' }}"
+      >
+        {{ message }}
+      </div>
       {% endfor %}
     </div>
     {% endif %} {% endwith %}
 
-    <!-- The rest of your HTML -->
     <div class="registration-container">
       <h1>Register</h1>
       <form action="/auth/register" method="post">
@@ -27,6 +31,17 @@
         <div class="input-group">
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required />
+        </div>
+        <div class="input-group">
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" required />
+        </div>
+        <div class="input-group-selection">
+          <label for="type">Type:</label>
+          <select id="type" name="type" required>
+            <option value="P">P</option>
+            <option value="H">H</option>
+          </select>
         </div>
         <button type="submit">Register</button>
       </form>

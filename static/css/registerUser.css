@@ -86,16 +86,24 @@ body {
 /* Existing styles remain unchanged */
 
 /* New or adjusted styles for flash messages */
-.flash-messages .success {
-    background-color: #d4edda; /* Light green background */
-    color: #155724; /* Dark green text */
-    border-color: #c3e6cb;
+.flash-messages .registration_success {
+  background-color: #d4edda; /* A light green background */
+  border-color: #c3e6cb; /* A slightly darker green border */
+  color: #155724; /* A dark green text color for contrast */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   }
   
-  .flash-messages .error {
-    background-color: #f8d7da; /* Keep existing error style */
-    color: #721c24;
-    border-color: #f5c6cb;
+  .flash-messages .registration_error {
+    background-color: #f8d7da; /* A light red background */
+    border-color: #f5c6cb; /* A slightly darker red border */
+    color: #721c24; /* A dark red text color for contrast */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
   }
   
   /* Style to change the background color for successful registration */
@@ -103,3 +111,44 @@ body {
   .successful-registration {
     background-color: #d4edda; /* Light green background for the whole page */
   }
+
+  .input-group-selection {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0; /* Adds some space around the group */
+    font-family: Arial, sans-serif; /* Example font */
+}
+
+.input-group-selection label {
+    margin-bottom: 5px;
+    font-size: 16px; /* Adjust label font size */
+    color: #333; /* Label text color */
+}
+
+.input-group-selection select {
+    padding: 8px 12px; /* Padding inside the dropdown */
+    border: 2px solid #ccc; /* Border color and width */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size inside the dropdown */
+    outline: none; /* Removes the default focus outline */
+    cursor: pointer; /* Changes cursor to indicate it's selectable */
+    -webkit-appearance: none; /* Removes default style on WebKit browsers */
+    -moz-appearance: none; /* Removes default style on Firefox */
+    appearance: none; /* Standard way to remove default arrow */
+    background-color: #f8f8f8; /* Background color */
+    background-image: url('http://example.com/arrow-down.png'); /* Custom dropdown arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Adjusts the position of the background image */
+    background-size: 15px; /* Adjusts the size of the arrow */
+}
+
+.input-group-selection select:hover {
+    border-color: #007bff; /* Changes border color on hover */
+}
+
+.input-group-selection select:focus {
+    border-color: #007bff; /* Changes border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adds a glow effect on focus */
+}
+
+/* You can add an icon for the dropdown arrow with background-image if desired */
