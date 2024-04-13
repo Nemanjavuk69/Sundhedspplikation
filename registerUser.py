@@ -21,8 +21,9 @@ def username_exists(username):
 
 @register_user.route('/register', methods=['GET', 'POST'])
 def register():
-    file_path = 'users.csv'
-    df = pd.read_csv(file_path)
+    file_path_U = 'users.csv'
+    file_path_P = 'doctors.csv'
+    df = pd.read_csv(file_path_U)
     ID = len(df)
     if request.method == 'POST':
         # Check if we already processed this form submission
@@ -44,12 +45,21 @@ def register():
             return redirect(url_for('register_user.register'))
 
         hashed_password = hash_string(password+salt())
-        with open(file_path, 'a', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow([username, hashed_password, email, ID, type])
-        flash('Registration successful! Please login.', 'registration_success')
-        return redirect(url_for('register_user.register'))
+        if type == 'P':
+            with open(file_path_U, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([username, hashed_password, email, ID, type])
+            flash('Registration successful! Please login.',
+                  'registration_success')
+            return redirect(url_for('register_user.register'))
 
+        elif type == 'H':
+            with open(file_path_P, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([username, hashed_password, email, ID, type])
+            flash('Registration successful! Please login.',
+                  'registration_success')
+            return redirect(url_for('register_user.register'))
     # Generate a unique token for the form
     form_token = os.urandom(12).hex()
     session['last_form_token'] = form_token
