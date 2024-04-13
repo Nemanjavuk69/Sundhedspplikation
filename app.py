@@ -3,6 +3,7 @@ from loginLookup import login_blueprint
 from registerUser import register_user
 from twoFA import generate_secure_code, send_code_via_email
 from healthJournal import get_health_journal
+from doctorDashboard import doctor_blueprint
 
 app = Flask(__name__)
 app.secret_key = '123456'
@@ -10,6 +11,8 @@ app.secret_key = '123456'
 # Register the blueprints
 app.register_blueprint(login_blueprint, url_prefix='/auth')
 app.register_blueprint(register_user, url_prefix='/auth')
+# Register the doctor blueprint
+app.register_blueprint(doctor_blueprint, url_prefix='/doctor')
 
 
 @app.route('/', methods=['GET', 'POST'])

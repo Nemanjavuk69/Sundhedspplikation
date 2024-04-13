@@ -109,3 +109,51 @@ def send_message():
         writer.writerow([username, user_id, email, message])
 
     return jsonify({'success': True})
+
+
+@login_blueprint.route('/view-messages', methods=['GET'])
+def view_messages():
+    # Ensure the doctor is logged in
+    if 'doctor_id' not in session:
+        return jsonify({'error': 'Not authorized'}), 401
+
+    messages = []
+    with open('inquiry.csv', mode='r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            messages.append(
+                {'username': row['Username'], 'message': row['Message']})
+    return jsonify(messages)
+
+
+@login_blueprint.route('/get-patients', methods=['GET'])
+def get_patients():
+    # Ensure the doctor is logged in
+    if 'doctor_id' not in session:
+        return jsonify({'error': 'Not authorized'}), 401
+
+    patients = []
+    with open('users.csv', mode='r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if {'id': row['ID'], 'username': row['Username']} not in patients:
+                patients.append({'id': row['ID'], 'username': row['Username']})
+    return jsonify(patients)
+
+
+@login_blueprint.route('/send-to-patient', methods=['POST'])
+def send_to_patient():
+    # Ensure the doctor is logged in
+    if 'doctor_id' not in session:
+        return jsonify({'error': 'Not authorized'}), 401
+
+    data = request.get_json()
+    patient_id = data['patientId']
+    message = data['message']
+
+    # Append message to health journal or similar action
+    with open('healthJournal.csv', mode='a', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([patient_id, message])
+
+    return jsonify({'success': True})
