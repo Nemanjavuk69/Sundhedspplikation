@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from loginLookup import login_blueprint
 from registerUser import register_user
 from twoFA import generate_secure_code, send_code_via_email
-
+from healthJournal import get_health_journal
 
 app = Flask(__name__)
 app.secret_key = '123456'
