@@ -8,8 +8,9 @@
   </head>
   <body>
     <div class="verification-form">
+      <h1>2FA Verification</h1>
       <form
-        action="{{ url_for('login_blueprint.login_control') }}"
+        action="{{ url_for('login_blueprint.login_control' if session.get('user_role') != 'doctor' else 'login_blueprint.login_control_doctor') }}"
         method="post"
       >
         <label for="code">Enter your 2FA code:</label><br />

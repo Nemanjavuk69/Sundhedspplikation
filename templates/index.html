@@ -10,7 +10,11 @@
     <div class="selection-container">
       <h1>Welcome to MinSundhed.dk</h1>
       <div class="option">
-        <a href="/login">Login</a>
+        <a href="{{ url_for('login_blueprint.patient_login') }}"
+          >Login as Patient</a
+        >
+        <a href="/auth/login/doctor">Login as Healthcare Personnel</a>
+
         <a href="/register">Register</a>
       </div>
     </div>

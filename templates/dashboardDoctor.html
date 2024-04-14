@@ -24,7 +24,13 @@
       <h1>Doctor Dashboard</h1>
       <button onclick="viewPatientMessages()">View Patient Messages</button>
       <button onclick="writePatient()">Write Patient</button>
-      <button id="logout-button" onclick="logout()">Log Out</button>
+      <button id="logout-button">
+        <a
+          href="{{ url_for('login_blueprint.logout') }}"
+          style="color: inherit; text-decoration: none"
+          >Log Out</a
+        >
+      </button>
 
       <!-- Div to display patient messages -->
       <div id="messages" class="container" style="display: none">

@@ -9,37 +9,71 @@ from flask import jsonify  # Add this import if it's not already there
 login_blueprint = Blueprint('login_blueprint', __name__)
 
 
-def verify_user_credentials(username, hashed_password):
-    with open('users.csv', mode='r', newline='') as csvfile:
+def verify_user_credentials(username, hashed_password, user_type='patient'):
+    csv_file = 'doctors.csv' if user_type == 'doctor' else 'users.csv'
+    with open(csv_file, mode='r', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             if row['Username'] == username and row['Password'] == hashed_password:
-                print(row['ID'])
                 return True, row['Email'], row['ID']
-    return False, None
+    return False, None, None
 
 
-@login_blueprint.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-    hashed_password = hash_string(password + salt())
-    user_verified, user_email, user_id = verify_user_credentials(
-        username, hashed_password)
+@login_blueprint.route('/login/patient', methods=['GET', 'POST'])
+def patient_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = hash_string(password + salt())
+        user_verified, user_email, user_id = verify_user_credentials(
+            username, hashed_password, user_type='patient')
 
-    if user_verified:
-        session['user_id'] = user_id
-        session['username'] = username
-        session['email'] = user_email
-        code = generate_secure_code()
-        send_code_via_email(user_email, code)
-        session['2fa_code'] = code
-        session['tries'] = 3  # Initialize the number of tries for 2FA
-        flash('Login successful. Check your email for the 2FA code.', 'info')
-        return redirect(url_for('login_blueprint.login_control'))
+        if user_verified:
+            session.clear()  # Clear previous session before setting new values
+            session['user_id'] = user_id
+            session['username'] = username
+            session['email'] = user_email
+            session['user_role'] = 'patient'  # Explicitly set the user role
+            code = generate_secure_code()
+            send_code_via_email(user_email, code)
+            session['2fa_code'] = code
+            session['tries'] = 3  # Initialize the number of tries for 2FA
+            flash('Login successful. Check your email for the 2FA code.', 'info')
+            # Redirect to 2FA verification page
+            return redirect(url_for('login_blueprint.login_control'))
+        else:
+            flash('Invalid username or password.', 'error')
+            return render_template('patientLogin.html')
     else:
-        flash('Invalid username or password.', 'error')
-        return redirect(url_for('sad'))
+        return render_template('patientLogin.html')
+
+
+@login_blueprint.route('/login/doctor', methods=['GET', 'POST'])
+def doctor_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = hash_string(password + salt())
+        user_verified, user_email, user_id = verify_user_credentials(
+            username, hashed_password, user_type='doctor')
+
+        if user_verified:
+            session.clear()  # Clear previous session before setting new values
+            session['user_id'] = user_id
+            session['username'] = username
+            session['email'] = user_email
+            session['user_role'] = 'doctor'  # Identify the user as a doctor
+            code = generate_secure_code()
+            send_code_via_email(user_email, code)
+            session['2fa_code'] = code
+            session['tries'] = 3
+            flash('Login successful. Check your email for the 2FA code.', 'info')
+            return redirect(url_for('login_blueprint.login_control_doctor'))
+        else:
+            flash('Invalid username or password.', 'error')
+            return render_template('doctorLogin.html')
+    else:
+        return render_template('doctorLogin.html')
 
 
 @login_blueprint.route('/dashboard')
@@ -53,6 +87,17 @@ def dashboard():
     return render_template('dashboard.html', entries=journal_entries)
 
 
+@login_blueprint.route('/doctor_dashboard')
+def doctor_dashboard():
+    # Make sure the user is logged in and is a doctor
+    if 'user_id' in session and session.get('user_role') == 'doctor':
+        # Fetch necessary data for the doctor's dashboard
+        return render_template('dashboardDoctor.html')
+    else:
+        flash('Please log in to access this page.', 'error')
+        return redirect(url_for('login_blueprint.doctor_login'))
+
+
 @login_blueprint.route('/loginControl', methods=['GET', 'POST'])
 def login_control():
     if request.method == 'POST':
@@ -60,12 +105,14 @@ def login_control():
         correct_code = session.get('2fa_code', '')
 
         if input_code == correct_code:
-            # Clear the 2FA code and tries from the session after successful verification
             session.pop('2fa_code', None)
             session.pop('tries', None)
             flash('2FA Verification successful!', 'success')
-            # Updated this line
-            return redirect(url_for('login_blueprint.dashboard'))
+            # Redirect based on user role
+            if session.get('user_role') == 'doctor':
+                return redirect(url_for('login_blueprint.doctor_dashboard'))
+            else:
+                return redirect(url_for('login_blueprint.dashboard'))
         else:
             session['tries'] -= 1
             if session['tries'] > 0:
@@ -75,9 +122,48 @@ def login_control():
                 session.pop('tries', None)
                 session.pop('2fa_code', None)
                 flash('You have exceeded the number of attempts.', 'error')
-                # Use the correct blueprint namespace
-                return redirect(url_for('login_blueprint.sad'))
+                if session.get('user_role') == 'doctor':
+                    return redirect(url_for('login_blueprint.doctor_login'))
+                else:
+                    return redirect(url_for('login_blueprint.patient_login'))
 
+    return render_template('loginControl.html')
+
+
+@login_blueprint.route('/logout')
+def logout():
+    # Clear the session to log out the user
+    session.clear()
+    flash('You have been logged out.', 'info')
+    # Redirect to the homepage
+    # Ensure 'home' is correctly defined in your app routes
+    return redirect(url_for('home'))
+
+
+@login_blueprint.route('/loginControl/doctor', methods=['GET', 'POST'])
+def login_control_doctor():
+    if request.method == 'POST':
+        input_code = request.form['code']
+        correct_code = session.get('2fa_code', None)
+
+        if input_code == correct_code and session.get('user_role') == 'doctor':
+            session.pop('2fa_code', None)
+            session.pop('tries', None)
+            flash('2FA Verification successful!', 'success')
+            # Ensure this route leads to the doctor's dashboard
+            return redirect(url_for('login_blueprint.doctor_dashboard'))
+        else:
+            session['tries'] -= 1
+            if session['tries'] > 0:
+                flash(f'Invalid 2FA code. {
+                      session["tries"]} attempts left.', 'error')
+            else:
+                session.pop('tries', None)
+                session.pop('2fa_code', None)
+                flash('You have exceeded the number of attempts.', 'error')
+                return redirect(url_for('login_blueprint.doctor_login'))
+
+    # This could be the same as loginControl.html if it adapts dynamically based on the user role
     return render_template('loginControl.html')
 
 

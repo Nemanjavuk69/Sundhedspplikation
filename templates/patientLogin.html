@@ -9,13 +9,16 @@
   <body>
     <div class="login-container">
       <h2>Enter your login credentials</h2>
-      <form action="/auth/login" method="post">
+      <form
+        action="{{ url_for('login_blueprint.patient_login') }}"
+        method="post"
+      >
         <div class="input-group">
-          <label for="username">Username</label>
+          <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
         </div>
         <div class="input-group">
-          <label for="password">Password</label>
+          <label for="password">Password:</label>
           <input type="password" id="password" name="password" required />
         </div>
         <input type="submit" value="Login" />
