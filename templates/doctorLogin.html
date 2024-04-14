@@ -3,19 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enter your login credentials</title>
+    <title>Doctor Login</title>
     <link rel="stylesheet" href="/static/css/login.css" />
   </head>
   <body>
     <div class="login-container">
-      <h2>Enter your login credentials</h2>
-      <form action="/auth/login" method="post">
+      <h2>Doctor Login</h2>
+      <form
+        action="{{ url_for('login_blueprint.doctor_login') }}"
+        method="post"
+      >
         <div class="input-group">
-          <label for="username">Username</label>
+          <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
         </div>
         <div class="input-group">
-          <label for="password">Password</label>
+          <label for="password">Password:</label>
           <input type="password" id="password" name="password" required />
         </div>
         <input type="submit" value="Login" />

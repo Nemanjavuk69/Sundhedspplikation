@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Dashboard - MinSundhed.dk</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+    <style>
+      #logout-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .container {
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
+    <script src="/static/js/doctorSettings.js"></script>
+    <!-- You will need to create this JS file -->
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <h1>Doctor Dashboard</h1>
+      <button onclick="viewPatientMessages()">View Patient Messages</button>
+      <button onclick="writePatient()">Write Patient</button>
+      <button id="logout-button">
+        <a
+          href="{{ url_for('login_blueprint.logout') }}"
+          style="color: inherit; text-decoration: none"
+          >Log Out</a
+        >
+      </button>
+
+      <!-- Div to display patient messages -->
+      <div id="messages" class="container" style="display: none">
+        <h2>Patient Messages</h2>
+        <ul id="message-list">
+          <!-- Patient messages will be populated here -->
+        </ul>
+      </div>
+
+      <!-- Div for writing to a patient -->
+      <div id="write" class="container" style="display: none">
+        <h2>Write to a Patient</h2>
+        <select id="patient-select">
+          <!-- Dropdown for selecting a patient -->
+        </select>
+        <textarea
+          id="patient-message"
+          placeholder="Enter your message here..."
+        ></textarea>
+        <button onclick="sendPatientMessage()">Send Message</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,3 +1,9 @@
 Username,Password,Email,ID,type
+<<<<<<< HEAD
 Hej,96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e,nemanjavuk@live.com,0,P
 Gordon,1abbff1f242912380d02a62d709fb44e6842e26c7c2de018b3c6bf1d5232e194,mailtester34@yahoo.com,1,P
+=======
+Test,96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e,nemanjavuk@live.com,0,P
+Lion,afa2d124d75612f83135b61d695b839b819bac0b74e324bd7f5f663e2ba198f8,tokov38585@iliken.com,1,P
+asf,e188898f3f66ffc8571f8a8e2eff1b76f56fd9f0dc3a038793b1356dfe679d21,asfasfa,2,P
+>>>>>>> 0b787a4f487c85106eec2ddfd04bcaf2764f3d40

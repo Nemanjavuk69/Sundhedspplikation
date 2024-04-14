@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard - MinSundhed.dk</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+    <style>
+      #logout-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .journal-container {
+        margin-top: 20px;
+      }
+    </style>
+    <script src="/static/js/userSettings.js"></script>
+    <!-- Include the external JS file -->
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <h1>User Dashboard</h1>
+      <button onclick="showHealthJournal()">My Health Journal</button>
+      <button onclick="writeDoctor()">Write Doctor</button>
+      <button id="logout-button" onclick="logout()">Log Out</button>
+
+      <!-- Div to display health journal entries -->
+      <div id="journal" class="journal-container" style="display: none">
+        <h2>Health Journal</h2>
+        <ul id="journal-entries">
+          <!-- Entries will be populated here -->
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
