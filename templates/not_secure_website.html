@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Field Submission</title>
+    <script>
+      // Wait until the DOM content is fully loaded before running the script
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the input field by its ID
+        var inputField = document.getElementById("inputField");
+
+        // Add an event listener for the 'keydown' event
+        inputField.addEventListener("keydown", function (event) {
+          // Check if the key pressed is the Enter key
+          if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the form from being submitted
+
+            // Get the display element
+            var display = document.getElementById("display");
+            // Set the content of the display element to the value of the input field
+            display.innerHTML = inputField.value;
+
+            // Clear the input field
+            inputField.value = "";
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" id="inputField" placeholder="Type here..." />
+    <h1 id="display">THE USER INPUT SHOULD SHOW UP HERE</h1>
+  </body>
+</html>

@@ -11,9 +11,12 @@ function showHealthJournal() {
               entriesList.appendChild(li);
           });
           document.getElementById('journal').style.display = 'block';  // Make sure the journal is visible
+          
+          // Log the cookies to the console
+          // console.log('Cookies:', document.cookie);
       })
       .catch(error => console.error('Failed to load journal entries:', error));
-}
+    }
   
   // Function to prompt user to write a message to a doctor and send it
   function writeDoctor() {

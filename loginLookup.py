@@ -84,6 +84,9 @@ def dashboard():
         return redirect(url_for('login_blueprint.login'))
 
     journal_entries = get_health_journal(user_id)
+    user_cookies = request.cookies
+    # This will print to the terminal where your Flask app is running
+    print("Received cookies:", user_cookies)
     return render_template('dashboard.html', entries=journal_entries)
 
 
