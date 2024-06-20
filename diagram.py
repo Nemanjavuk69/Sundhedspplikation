@@ -6,40 +6,44 @@ dot = Digraph()
 # Add nodes (representing Python files)
 # Typically the main entry point of the application. Initializes and configures the application.
 dot.node('A', 'App.py')
-# Manages the doctor's dashboard interface, likely fetching and displaying patient data.
+
 dot.node('B', 'doctorDashboard.py')
 dot.node('C', 'doctors.py')
 dot.node('D', 'hashing.py')
 dot.node('E', 'healthJournal.py')
-dot.node('F', 'loginLookup.py')
-dot.node('G', 'registerUser.py')
-dot.node('H', 'salting.py')
-dot.node('I', 'twoFA.py')
+dot.node('F', 'insertSQL.py')
+dot.node('G', 'loginLookup.py')
+dot.node('H', 'lookupSQL.py')
+dot.node('I', 'registerRequirements.py')
+dot.node('J', 'registerUser.py')
+dot.node('K', 'salting.py')
+dot.node('L', 'twoFA.py')
 
 dot.node('HH', 'salting.py')
 dot.node('DD', 'hashing.py')
 
 
 # Add nodes (representing HTML files)
-dot.node('J', 'dashboard.html')
-dot.node('K', 'dashboardDoctor.html')
-dot.node('L', 'doctorLogin.html')
-dot.node('M', 'index.html')
-dot.node('N', 'loginControl.html')
-dot.node('O', 'patientLogin.html')
-dot.node('P', 'registerUser.html')
+dot.node('M', 'dashboard.html')
+dot.node('N', 'dashboardDoctor.html')
+dot.node('O', 'doctorLogin.html')
+dot.node('P', 'index.html')
+dot.node('Q', 'loginControl.html')
+dot.node('R', 'patientLogin.html')
+dot.node('S', 'registerUser.html')
 
 
 # Add nodes (representing HTML files)
-dot.node('Q', 'doctorSettings.js')
-dot.node('R', 'userSettings.js')
+dot.node('T', 'doctorSettings.js')
+dot.node('U', 'userSettings.js')
 
 
 # Add nodes (representing csv files)
-dot.node('S', 'doctors.csv')
-dot.node('T', 'healthJournal.csv')
-dot.node('U', 'inquiry.csv')
-dot.node('V', 'users.csv')
+dot.node('V', 'doctors.sql')
+dot.node('W', 'healthJournal.sql')
+dot.node('X', 'inquiry.sql')
+dot.node('Y', 'users.sql')
+dot.node('Z', 'Sundhedsapplikation server')
 
 
 # Add edges (representing interactions)
